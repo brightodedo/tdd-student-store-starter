@@ -1,0 +1,17 @@
+nav{
+    display: flex;
+    background-color: #2c4047;
+    color: aliceblue;
+    align-items: center;
+    justify-content: space-evenly; 
+    text-decoration: none;
+}
+nav a{
+    text-decoration: none;
+    color: aliceblue;
+}
+
+nav a:hover{
+    color: orange;
+    text-decoration: underline
+}

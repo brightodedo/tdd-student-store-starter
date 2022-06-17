@@ -1,0 +1,32 @@
+.hero{
+    min-height: 3vh;
+    color: aliceblue;
+    background-color: rgb(20, 83, 99);
+    display: flex;
+    justify-content: space-around;
+    word-wrap: break-word;
+}
+
+.hero p{
+    margin: 0px;
+    word-break: break-all;
+}
+.welcome-text{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+.welcome-image{
+    display: flex;
+    justify-content: center;
+}
+
+.intro{
+    font-size: 105px;
+}
+
+.following-text{
+    font-size: 19px;
+}

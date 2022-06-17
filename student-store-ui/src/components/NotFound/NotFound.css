@@ -1,0 +1,14 @@
+.error{
+    text-align: center;
+    width: 100%;
+}
+
+.error h1{
+    font-size: 60px;
+    height: auto;
+}
+
+.error h2{
+    font-size: 35px;
+    height: auto;
+}
