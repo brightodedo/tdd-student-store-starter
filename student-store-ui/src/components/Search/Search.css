@@ -1,0 +1,8 @@
+.inputField{
+    transition: 3s;
+}
+.inputField:focus{
+    outline: 15px purple;
+    box-shadow: purple;
+    width: 215px;
+}

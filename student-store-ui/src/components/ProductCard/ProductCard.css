@@ -1,0 +1,29 @@
+.product-card{
+    width: 250px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: rgb(20, 83, 99);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    outline: 55px;
+    border: 1px solid grey;
+    color: aliceblue;
+    transition: .2s;
+}
+
+.product-card:hover{
+    background-color: black;
+    color: lavenderblush;
+    transform: scale(1.1);
+}
+
+.media img{
+    height: 250px;
+    width: 228px;
+    border-radius: 0px;
+}
+
+.product-card.display{
+    background-color: blueviolet;
+}
