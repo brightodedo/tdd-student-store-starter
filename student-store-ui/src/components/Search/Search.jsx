@@ -2,7 +2,6 @@ import * as React from "react"
 import "./Search.css"
 
 export default function Search(props){
-    console.log(props)
     return(
         <div className="search">
             <form action="">

@@ -26,7 +26,8 @@ export default function ProductDetail(props){
 
     return(
         <div className="product-detail">
-            {product == null ? <NotFound/>  : <ProductView product={product} productId={productId} showDescription={props.showDescription} handlesetShowDescription={props.handlesetShowDescription} handleAddItemToCart={props.handleAddItemToCart} handleRemoveItemFromCart={props.handleRemoveItemFromCart}/>} 
+            {product == null ? <NotFound/>  : <ProductView product={product} productId={productId} showDescription={props.showDescription} handlesetShowDescription={props.handlesetShowDescription} handleAddItemToCart={props.handleAddItemToCart} handleRemoveItemFromCart={props.handleRemoveItemFromCart} 
+            shoppingCart={props.shoppingCart}/>} 
         </div>
     )
 }

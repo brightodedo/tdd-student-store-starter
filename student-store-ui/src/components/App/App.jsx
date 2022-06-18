@@ -25,20 +25,39 @@ const[error, setError] = React.useState("404 Not Found My G")
 //State Variable for {isOpen} variable of type [boolean]
 const [isOpen, setIsOpen] = React.useState(false)
 
-//State Variable for {shoppingCart} variabe of type [Aray of Obj or [{itemId : quantity}] ]
-const [shoppingCart, setShoppingCart] = React.useState([{}])
+//State Variable for {shoppingCart} variabe of type [Obj of Obj or {itemId: {itemName : quantity}, itemId : {itemName : quantity}} ]
+const [shoppingCart, setShoppingCart] = React.useState({itemId: {itemName : "quantity"}})
 
 //State Variable for the CheckoutForm
 const[checkoutForm, setCheckoutForm] = React.useState()
 
 //[handleAddItemToCart] function  Declaration
-const handleAddItemToCart = () => {
-  console.log("handleAddItemToCart was called")
+const handleAddItemToCart = (productId, productName) => {
+
+  //Check if item already in shopping cart
+  if(shoppingCart[productId]){
+    //increase the amount in the shopping cart
+    setShoppingCart({...shoppingCart, [productId] : {[productName] : shoppingCart[productId][productName]+1 } })
+  }
+  else{
+    setShoppingCart({...shoppingCart, [productId] : {[productName] : 1 } })
+  }
 }
 
 // [handleRemoveItemFromCart] function Declaration
-const handleRemoveItemFromCart = () =>{
-  console.log("handleRemoveItemFromCart was called")
+const handleRemoveItemFromCart = (productId, productName) =>{
+
+  //Check if item exists in shopping cart
+  if(shoppingCart[productId]){
+    /*check if quantity is 1 
+    if quantity is 1 then replace obj with undefined 
+    */
+   if(shoppingCart[productId][productName] == 1) setShoppingCart({...shoppingCart, [productId] : undefined })
+    else{
+   //decrease the amount in the shopping cart
+    setShoppingCart({...shoppingCart, [productId] : {[productName] : shoppingCart[productId][productName]-1 } })
+    }
+  }
 }
 
 // State Variable {showDescription} of type [boolean] to toogle showing description
@@ -115,8 +134,9 @@ const handleSearchTextChange = (event) => {
         <main>
         <Navbar />
           <Rrd.Routes>
-            <Rrd.Route path="/" element={<Home products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription={handlesetShowDescription} handleSearchTextChange={handleSearchTextChange} searchValue={searchValue} handleSetProduct={handleSetProduct}/>}></Rrd.Route>
-            <Rrd.Route path="/products/:productId" element={<ProductDetail handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription ={handlesetShowDescription}/>}> </Rrd.Route>
+            <Rrd.Route path="/" element={<Home products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription={handlesetShowDescription} handleSearchTextChange={handleSearchTextChange} searchValue={searchValue} handleSetProduct={handleSetProduct} 
+            shoppingCart={shoppingCart}/>}></Rrd.Route>
+            <Rrd.Route path="/products/:productId" element={<ProductDetail handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription ={handlesetShowDescription} shoppingCart={shoppingCart}/>}> </Rrd.Route>
             <Rrd.Route path="*" element={<NotFound />}></Rrd.Route> 
           </Rrd.Routes>
 

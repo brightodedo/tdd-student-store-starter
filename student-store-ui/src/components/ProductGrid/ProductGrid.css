@@ -4,3 +4,9 @@
     flex-wrap: wrap;
     justify-content: space-around;
 }
+.item-NA{
+    text-align: center;
+    font-style: italic;
+    font-weight: bolder;
+    font-size: 70px;
+}

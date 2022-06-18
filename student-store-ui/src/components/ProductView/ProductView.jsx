@@ -11,7 +11,9 @@ export function ProductView(props){
     return(
     <div className="product-view">
         <h1 className="product-id">Product #{props.productId}</h1>
-        <ProductCard product={props.product} showDescription={props.showDescription} handlesetShowDescription={props.handlesetShowDescription} handleAddItemToCart={props.handleAddItemToCart} handleRemoveItemFromCart={props.handleRemoveItemFromCart}/>
+        <div className="product-view-card">
+            <ProductCard product={props.product} showDescription={props.showDescription} handlesetShowDescription={props.handlesetShowDescription} handleAddItemToCart={props.handleAddItemToCart} handleRemoveItemFromCart={props.handleRemoveItemFromCart} shoppingCart={props.shoppingCart}/>
+        </div>
     </div>)
 }
 

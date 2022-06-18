@@ -10,9 +10,10 @@ export function ProductGrid(props){
     return(
         <div className="product-grid">
             {props.products.length > 0 ? props.products.map((product, idx) => {
-                return (<ProductCard product={product} key={idx} showDescription={props.showDescription} handlesetShowDescription={props.handlesetShowDescription} handleAddItemToCart={props.handleAddItemToCart}  handleRemoveItemFromCart={props.handleRemoveItemFromCart}/>)
+                return (<ProductCard product={product} key={idx} showDescription={props.showDescription} handlesetShowDescription={props.handlesetShowDescription} handleAddItemToCart={props.handleAddItemToCart}  handleRemoveItemFromCart={props.handleRemoveItemFromCart}
+                    shoppingCart={props.shoppingCart}/>)
             }) : 
-            <h1> Don't give up! Find something GOOD for your Daddy! 😏</h1>
+            <h1 className="item-NA"> Item not available </h1>
         }
         </div>
     )
