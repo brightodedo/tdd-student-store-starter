@@ -5,6 +5,8 @@ import ProductGrid from "../ProductGrid/ProductGrid"
 import { useEffect } from "react"
 import imgSrc from "../../assests/codepath.svg"
 import Search from "../Search/Search"
+import imgSrc1 from "../../assests/appStore.svg"
+import imgSrc2 from "../../assests/playStore.svg"
 
 export default function Home(props) {
   {useEffect(() => {
@@ -42,58 +44,57 @@ export default function Home(props) {
           <div className="link-column">
             <h4>Categories</h4>
             <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li>All Categories</li>
+              <li> Clothing </li>
+              <li> Food </li>
+              <li> Accessories </li>
+              <li> Tech </li>
             </ul>
           </div>
           <div className="link-column">
           <h4> Company </h4>
             <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li> About Us </li>
+              <li> Find a Store </li>
+              <li> Terms </li>
+              <li> Sitemap </li>
+              <li> Careers </li>
             </ul>
           </div>
           <div className="link-column">
           <h4> Support </h4>
             <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li> Contact Us </li>
+              <li> Money Refund </li>
+              <li> Order Status </li>
+              <li> Shipping Info </li>
+              <li> Open Dispute </li>
             </ul>
           </div>
           <div className="link-column">
           <h4> Account </h4>
             <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li> Login </li>
+              <li> Register </li>
+              <li> Account Setting </li>
+              <li> My Orders </li>
             </ul>
           </div>
           <div className="link-column">
           <h4> Socials </h4>
             <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li> Facebook </li>
+              <li> Twitter </li>
+              <li> LinkedIn </li>
+              <li> Instagram </li>
+              <li> YouTube </li>
             </ul>
           </div>
           <div className="link-column">
           <h4> Our App </h4>
             <ul>
-              <li></li>
-              <li></li>
+              <li> <img src={imgSrc1} alt="" /></li>
+              <li> <img src={imgSrc2} alt="" /></li>
               <li></li>
               <li></li>
               <li></li>
