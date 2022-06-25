@@ -55,11 +55,15 @@ export default function CheckoutForm(props){
                   {props.isSubmitted == null ? <></> : <p>Showing Receipt for {props.isSubmitted.name} available at {props.isSubmitted.email}</p>}
                   <ul>
                     {props.isSubmitted.order.map((item,idx) => {
-                      return <li key={idx}>{`${item.quantity} total ${props.products[item.itemId-1].name}
+                      return <li key={idx} className="purch">{`${item.quantity} total ${props.products[item.itemId-1].name}
                       purchased at a cost of $${props.products[item.itemId-1].price} for a total
                       cost of $${(item.quantity * props.products[item.itemId-1].price).toFixed(2)}`}</li>
                     })}
+                    <li className="final-tax">Before taxes, the subtotal was ${(props.isSubmitted.total).toFixed(2)}</li>
+                    <li className="final-tax">After taxes and fees were applied, the total comes out to ${(props.isSubmitted.total).toFixed(2)}</li>
                   </ul>
+                  <button onClick={props.removeReceipt}> shop more </button>
+                  <button onClick={props.removeReceipt}> Exit </button>
                   </div>}
                 
         </div>

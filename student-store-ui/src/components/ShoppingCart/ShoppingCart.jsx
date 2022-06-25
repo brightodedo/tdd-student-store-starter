@@ -58,7 +58,7 @@ export default function ShoppingCart(props){
               <CheckoutForm isOpen={props.isOpen} shoppingCart={props.shoppingCart} checkoutForm={props.checkoutForm}
                 handleOnCheckoutFormChange={props.handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={props.handleOnSubmitCheckoutForm}
                 successfulPost={props.successfulPost} incompleteCheckoutForm={props.incompleteCheckoutForm} 
-                isSubmitted={props.isSubmitted} products={props.products}/>
+                isSubmitted={props.isSubmitted} products={props.products} removeReceipt={props.removeReceipt}/>
               
             </div> 
             : <></>}

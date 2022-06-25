@@ -10,7 +10,7 @@ export default function Sidebar(props) {
         {!props.isOpen ?  <button className="toggle-button button closed" onClick={props.handleOnToggle}><i className="material-icons md-48">arrow_forward</i></button> : <button className="toggle-button button open" onClick={props.handleOnToggle}><i className="material-icons md-48">arrow_forward</i></button>}
         <ShoppingCart shoppingCart={props.shoppingCart} isOpen={props.isOpen} products={props.products} checkoutForm={props.checkoutForm}
         handleOnCheckoutFormChange={props.handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={props.handleOnSubmitCheckoutForm} successfulPost={props.successfulPost}
-        incompleteCheckoutForm={props.incompleteCheckoutForm} isSubmitted={props.isSubmitted}/>
+        incompleteCheckoutForm={props.incompleteCheckoutForm} isSubmitted={props.isSubmitted} removeReceipt={props.removeReceipt}/>
         
       </div>
     </section>

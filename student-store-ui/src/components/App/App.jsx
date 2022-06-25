@@ -161,8 +161,6 @@ const handleOnCheckoutFormChange = (name, value) => {
 
 }
 
-
-
 const handleOnSubmitCheckoutForm = () => {
   if(shoppingCart.length < 1) {
     setIncompleteCheckoutForm("shopping cart is empty")
@@ -188,6 +186,11 @@ const handleOnSubmitCheckoutForm = () => {
     })
   }
 }
+
+const removeReceipt = () => {
+  setIsSubmitted(null)
+  setSuccessfullPost(null)
+}
   return (
     <div className="app">
       
@@ -195,7 +198,7 @@ const handleOnSubmitCheckoutForm = () => {
         <main>
         <Sidebar isOpen={isOpen} handleOnToggle={handleOnToggle} shoppingCart={shoppingCart} products={products} checkoutForm={checkoutForm} 
         handleOnCheckoutFormChange={handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} successfulPost={successfulPost}
-        incompleteCheckoutForm={incompleteCheckoutForm} isSubmitted={isSubmitted}/>
+        incompleteCheckoutForm={incompleteCheckoutForm} isSubmitted={isSubmitted} removeReceipt={removeReceipt}/>
         <Navbar />
           <Rrd.Routes>
             <Rrd.Route path="/" element={<Home products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription={handlesetShowDescription} handleSearchTextChange={handleSearchTextChange} searchValue={searchValue} handleSetProduct={handleSetProduct} 
