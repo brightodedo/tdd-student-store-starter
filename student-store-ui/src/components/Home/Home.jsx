@@ -22,7 +22,7 @@ export default function Home(props) {
       <ProductGrid {...props}/>
 
 
-      <h1>About Us</h1>
+      <h1 id="about-us">About Us</h1>
       <div className="About">
         <div className="About-text">
         <p>

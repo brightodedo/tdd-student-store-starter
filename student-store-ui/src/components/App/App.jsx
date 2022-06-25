@@ -25,38 +25,62 @@ const[error, setError] = React.useState("404 Not Found My G")
 //State Variable for {isOpen} variable of type [boolean]
 const [isOpen, setIsOpen] = React.useState(false)
 
-//State Variable for {shoppingCart} variabe of type [Obj of Obj or {itemId: {itemName : quantity}, itemId : {itemName : quantity}} ]
-const [shoppingCart, setShoppingCart] = React.useState({itemId: {itemName : "quantity"}})
+//State Variable for {shoppingCart} variabe of type [array of Obj or [{itemId:1, quantity : 2}] ]
+const [shoppingCart, setShoppingCart] = React.useState([]) //[{itemId:1, quantity : 2}]
 
 //State Variable for the CheckoutForm
-const[checkoutForm, setCheckoutForm] = React.useState()
+const[checkoutForm, setCheckoutForm] = React.useState({name: "name", email : "kaguya@loveiswar.com"})
+
+const [successfulPost, setSuccessfullPost] = React.useState(null)
+
+const [incompleteCheckoutForm, setIncompleteCheckoutForm] = React.useState("")
+
+const [isSubmitted, setIsSubmitted] = React.useState(null)
 
 //[handleAddItemToCart] function  Declaration
-const handleAddItemToCart = (productId, productName) => {
+const handleAddItemToCart = (productId) => {
 
   //Check if item already in shopping cart
-  if(shoppingCart[productId]){
-    //increase the amount in the shopping cart
-    setShoppingCart({...shoppingCart, [productId] : {[productName] : shoppingCart[productId][productName]+1 } })
+  let itemIdx = -1
+  for(let i = 0; i < shoppingCart.length; i++){
+    if(shoppingCart[i].itemId == productId) itemIdx = i
+  }
+  //if it exists increase the amount in the shopping cart
+  if(itemIdx != -1) {
+    let falseShoppingCart = [...shoppingCart]
+    falseShoppingCart[itemIdx] = {"itemId" : productId, "quantity" : falseShoppingCart[itemIdx].quantity + 1}
+    setShoppingCart(falseShoppingCart)
   }
   else{
-    setShoppingCart({...shoppingCart, [productId] : {[productName] : 1 } })
+    setShoppingCart([...shoppingCart, {"itemId" : productId, "quantity" : 1}])
   }
 }
 
 // [handleRemoveItemFromCart] function Declaration
-const handleRemoveItemFromCart = (productId, productName) =>{
+const handleRemoveItemFromCart = (productId) =>{
 
   //Check if item exists in shopping cart
-  if(shoppingCart[productId]){
+  let itemIdx = -1
+  for(let i = 0; i < shoppingCart.length; i++){
+    if(shoppingCart[i].itemId == productId) itemIdx = i
+  }
+
+  //if it exists increase the amount in the shopping cart
+  if(itemIdx != -1) {
     /*check if quantity is 1 
-    if quantity is 1 then replace obj with undefined 
+    if quantity is 1 then remove object from cart 
     */
-   if(shoppingCart[productId][productName] == 1) setShoppingCart({...shoppingCart, [productId] : undefined })
-    else{
-   //decrease the amount in the shopping cart
-    setShoppingCart({...shoppingCart, [productId] : {[productName] : shoppingCart[productId][productName]-1 } })
-    }
+   if(shoppingCart[itemIdx].quantity == 1){
+    let falseShoppingCart = shoppingCart.filter((items) => {
+      if(items.itemId != productId) return items
+    })
+    setShoppingCart(falseShoppingCart)
+   }
+   else{
+    let falseShoppingCart = [...shoppingCart]
+    falseShoppingCart[itemIdx].quantity = falseShoppingCart[itemIdx].quantity-1
+    setShoppingCart(falseShoppingCart)
+   }
   }
 }
 
@@ -73,7 +97,7 @@ const handlesetShowDescription = (bool) => {
 
 //useEffect function
 React.useEffect(() => {
-  axios.get('https://codepath-store-api.herokuapp.com/store').then(response => {
+  axios.get('http://localhost:3001/store').then(response => {
     setProducts(response.data.products)
   }).catch(error => {
     setError('404 not accepted.')
@@ -85,7 +109,7 @@ React.useEffect(() => {
 //upadate products list function only
 const handleSetProduct = async(word, caller) => {
   // get the original list
-  let originalProducts = await axios.get('https://codepath-store-api.herokuapp.com/store').then(response => {
+  let originalProducts = await axios.get('http://localhost:3001/store').then(response => {
     return response.data.products}).catch( error => {
       console.log("An error occurred")
       return null
@@ -127,16 +151,56 @@ const handleSearchTextChange = (event) => {
   handleSetProduct(text, 1)
 }
 
+const handleOnToggle = () => {
+  setIsOpen(!isOpen)
+} 
+
+const handleOnCheckoutFormChange = (name, value) => {
+  if(name == "email")setCheckoutForm({...checkoutForm, email: value})
+  else setCheckoutForm({...checkoutForm, name :  value})
+
+}
+
+
+
+const handleOnSubmitCheckoutForm = () => {
+  if(shoppingCart.length < 1) {
+    setIncompleteCheckoutForm("shopping cart is empty")
+  }else if(!(checkoutForm.name && checkoutForm.email)){
+    setIncompleteCheckoutForm("Check out form must contain name and email")
+  }
+  else{
+    axios.post('http://localhost:3001/store', {
+      "user" : checkoutForm,
+      "shoppingCart" : shoppingCart
+    })
+    .then((response) => {
+      setIsSubmitted(response.data.purchase)
+      setSuccessfullPost(true)
+      setShoppingCart([])
+      setCheckoutForm({name: "name", email : "kaguya@loveiswar.com"})
+      setIncompleteCheckoutForm("")
+    })
+    .catch((error) => {
+      console.log(error)
+      setSuccessfullPost(false)
+      setIncompleteCheckoutForm("")
+    })
+  }
+}
   return (
     <div className="app">
-      <Sidebar />
+      
       <Rrd.BrowserRouter>
         <main>
+        <Sidebar isOpen={isOpen} handleOnToggle={handleOnToggle} shoppingCart={shoppingCart} products={products} checkoutForm={checkoutForm} 
+        handleOnCheckoutFormChange={handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} successfulPost={successfulPost}
+        incompleteCheckoutForm={incompleteCheckoutForm} isSubmitted={isSubmitted}/>
         <Navbar />
           <Rrd.Routes>
             <Rrd.Route path="/" element={<Home products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription={handlesetShowDescription} handleSearchTextChange={handleSearchTextChange} searchValue={searchValue} handleSetProduct={handleSetProduct} 
             shoppingCart={shoppingCart}/>}></Rrd.Route>
-            <Rrd.Route path="/products/:productId" element={<ProductDetail handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription ={handlesetShowDescription} shoppingCart={shoppingCart}/>}> </Rrd.Route>
+            <Rrd.Route path="/products/:productId" element={<ProductDetail handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription ={handlesetShowDescription} shoppingCart={shoppingCart} isFetching={isFetching} setIsFetching={setIsFetching}/>}> </Rrd.Route>
             <Rrd.Route path="*" element={<NotFound />}></Rrd.Route> 
           </Rrd.Routes>
 

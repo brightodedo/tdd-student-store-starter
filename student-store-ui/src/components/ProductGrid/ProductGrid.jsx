@@ -3,7 +3,6 @@ import "./ProductGrid.css"
 import ProductCard from "../ProductCard/ProductCard.jsx"
 
 export function ProductGrid(props){
-    
     //{useEffect} function to change the {showDescription} state variable to (boolean) value of [false]
     React.useEffect(() => props.handlesetShowDescription(false), [])
     //Return Statement
