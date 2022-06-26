@@ -35,18 +35,25 @@ let Store = class{
         if(ifduplicates) return {status : 400, json : {error : "bad Request: shoppingCart contains a duplicate item"}}
 
         const data = require("../data/db.json")
-
+        const products = data.products
         //calculate the total cost of items
         let total = 0
         //loop through the array
         for(let i = 0; i < shoppingCart.length; i++){
                 //fetch the cost of the item and multiply by quantity.... store it in the total array.
-                total += data.products[shoppingCart[i].itemId-1].price * shoppingCart[i].quantity
+                total += products[shoppingCart[i].itemId-1].price * shoppingCart[i].quantity
         }
         total *= 1.0875
 
         //create a new purchase object
         let currentDate = new Date()
+
+        //create receipt
+        let receipt = shoppingCart.map((item) => {
+            return `Bought ${item.quantity} ${products[item.itemId-1].name} at $${(item.quantity * products[item.itemId-1].price).toFixed(2)} \t`
+        })
+
+        receipt.push(`Total $${total.toFixed(2)}`)
 
         const purchaseObj = {
             "id" : data.purchases.length+1,
@@ -55,7 +62,7 @@ let Store = class{
             "order" : shoppingCart,
             "total" : total,
             "createdAt" : `${currentDate.getMonth()+1}-${currentDate.getDate()}-${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}::${currentDate.getMilliseconds()}`,
-            "receipt" : `PLACEHOLDER RECEIPT FOR NOW`
+            "receipt" : receipt
         }
 
         //add the purchase to the data file
@@ -81,6 +88,22 @@ let Store = class{
         const data = require("../data/db.json")
         if (productId > data.products.length) return {status: 404, json : {error : "said page does not exist"}}
         else return {status : 200, json : data.products[productId-1]}
+    }
+
+    static getPurchases(){
+        const data = require("../data/db.json")
+
+        return {status : 200, json: {purchases : data.purchases}}
+    }
+
+    static getPurchase(orderId){
+        const data = require("../data/db.json")
+        let result = data.purchases
+
+        if(orderId > result.length) return {status : 400, json : {error : "orderId does not exist"}}
+        else{
+            return {status : 200, json : {order : result[orderId-1]}}
+        } 
     }
 }
 

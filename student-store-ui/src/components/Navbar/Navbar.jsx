@@ -9,6 +9,7 @@ export default function Navbar() {
     <nav className="navbar">
       <Logo />
       <Rrd.Link to='/'> Home </Rrd.Link> 
+      <Rrd.Link to='/orders'> Orders </Rrd.Link> 
       <Rrd.Link to='/'> About Us </Rrd.Link>
       <Rrd.Link to='/'> Contact Us </Rrd.Link>
       <Rrd.Link to='/'> Buy Now </Rrd.Link>

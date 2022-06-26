@@ -7,6 +7,7 @@ import * as Rrd from "react-router-dom";
 import axios from "axios"
 import NotFound from "../NotFound/NotFound"
 import ProductDetail from "../ProductDetail/ProductDetail"
+import Order from "../Order/Order"
 
 
 export default function App(){
@@ -204,6 +205,7 @@ const removeReceipt = () => {
             <Rrd.Route path="/" element={<Home products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription={handlesetShowDescription} handleSearchTextChange={handleSearchTextChange} searchValue={searchValue} handleSetProduct={handleSetProduct} 
             shoppingCart={shoppingCart}/>}></Rrd.Route>
             <Rrd.Route path="/products/:productId" element={<ProductDetail handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart} showDescription={showDescription} handlesetShowDescription ={handlesetShowDescription} shoppingCart={shoppingCart} isFetching={isFetching} setIsFetching={setIsFetching}/>}> </Rrd.Route>
+            <Rrd.Route path="/orders" element={<Order/>}></Rrd.Route>
             <Rrd.Route path="*" element={<NotFound />}></Rrd.Route> 
           </Rrd.Routes>
 

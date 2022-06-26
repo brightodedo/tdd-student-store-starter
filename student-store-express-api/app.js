@@ -8,6 +8,7 @@ const data = require("./data/db.json")
 const bodyParser = require('body-parser')
 const Store = require("./models/store")
 const router = require("./routes/router")
+const orderRouter = require("./orders/orders")
 
 //all declarations in here
 const app = express()
@@ -18,6 +19,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use("/store", router)
+app.use("/orders", orderRouter)
 
 //health check api
 app.get('/', (req, res) => {
